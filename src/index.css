@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* normalize stuff */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #1f2937;
+  --secondary: #164e63;
+  --accent: #6b21a8;
+  --bg-alt: #0f172a;
+  --card-bg: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --border-color: #334155;
+  --success: #059669;
+  --danger: #6b21a8;
+  --info: #0891b2;
+}
+
+body {
+  @apply font-sans bg-dark text-primary;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import AdminNav from '../components/AdminNav';
 
 function Skills({ token, onLogout }) {
@@ -17,7 +17,7 @@ function Skills({ token, onLogout }) {
 
   const fetchSkills = async () => {
     try {
-      const response = await axios.get('/api/skills');
+      const response = await axiosInstance.get('/api/skills');
       setSkills(response.data);
     } catch (error) {
       console.error('Error fetching skills:', error);
@@ -40,10 +40,10 @@ function Skills({ token, onLogout }) {
 
       if (editingId) {
         // Update existing
-        await axios.put(`/api/skills/${editingId}`, dataToSend);
+        await axiosInstance.put(`/api/skills/${editingId}`, dataToSend);
       } else {
         // Add new
-        await axios.post('/api/skills', dataToSend);
+        await axiosInstance.post('/api/skills', dataToSend);
       }
 
       fetchSkills();
@@ -67,7 +67,7 @@ function Skills({ token, onLogout }) {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this skill category?')) {
       try {
-        await axios.delete(`/api/skills/${id}`);
+        await axiosInstance.delete(`/api/skills/${id}`);
         fetchSkills();
       } catch (error) {
         console.error('Error deleting skill:', error);

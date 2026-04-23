@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import AdminNav from '../components/AdminNav';
 
 function Highlights({ token, onLogout }) {
@@ -19,7 +19,7 @@ function Highlights({ token, onLogout }) {
   const fetchHighlights = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/highlights');
+      const response = await axiosInstance.get('/api/highlights');
       setHighlights(response.data || []);
     } catch (error) {
       console.error('Error fetching highlights:', error);
@@ -45,9 +45,9 @@ function Highlights({ token, onLogout }) {
       const headers = { Authorization: `Bearer ${token}` };
 
       if (editingId) {
-        await axios.put(`/api/admin/highlights/${editingId}`, formData, { headers });
+        await axiosInstance.put(`/api/admin/highlights/${editingId}`, formData, { headers });
       } else {
-        await axios.post('/api/admin/highlights', formData, { headers });
+        await axiosInstance.post('/api/admin/highlights', formData, { headers });
       }
 
       await fetchHighlights();
@@ -73,7 +73,7 @@ function Highlights({ token, onLogout }) {
     if (window.confirm('Are you sure you want to delete this highlight?')) {
       try {
         const headers = { Authorization: `Bearer ${token}` };
-        await axios.delete(`/api/admin/highlights/${id}`, { headers });
+        await axiosInstance.delete(`/api/admin/highlights/${id}`, { headers });
         await fetchHighlights();
       } catch (error) {
         console.error('Error deleting highlight:', error);

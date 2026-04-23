@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import AdminNav from '../components/AdminNav';
 
 function ProgrammingStats({ token, onLogout }) {
@@ -23,7 +23,7 @@ function ProgrammingStats({ token, onLogout }) {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get('/api/programming');
+      const response = await axiosInstance.get('/api/programming');
       setStats(response.data.stats || []);
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -39,11 +39,11 @@ function ProgrammingStats({ token, onLogout }) {
     e.preventDefault();
     try {
       if (editingId) {
-        await axios.put(`/api/admin/programming/${editingId}`, formData, {
+        await axiosInstance.put(`/api/admin/programming/${editingId}`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } else {
-        await axios.post('/api/admin/programming', formData, {
+        await axiosInstance.post('/api/admin/programming', formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -84,7 +84,7 @@ function ProgrammingStats({ token, onLogout }) {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this stat?')) {
       try {
-        await axios.delete(`/api/admin/programming/${id}`, {
+        await axiosInstance.delete(`/api/admin/programming/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         fetchStats();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import AdminNav from '../components/AdminNav';
 
 function Projects({ token, onLogout }) {
@@ -30,7 +30,7 @@ function Projects({ token, onLogout }) {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('/api/projects');
+      const response = await axiosInstance.get('/api/projects');
       setProjects(response.data);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -78,9 +78,9 @@ function Projects({ token, onLogout }) {
       };
 
       if (editingId) {
-        await axios.put(`/api/admin/projects/${editingId}`, formDataToSend, config);
+        await axiosInstance.put(`/api/admin/projects/${editingId}`, formDataToSend, config);
       } else {
-        await axios.post('/api/admin/projects', formDataToSend, config);
+        await axiosInstance.post('/api/admin/projects', formDataToSend, config);
       }
 
       setFormData({
@@ -128,7 +128,7 @@ function Projects({ token, onLogout }) {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       try {
-        await axios.delete(`/api/admin/projects/${id}`, {
+        await axiosInstance.delete(`/api/admin/projects/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         fetchProjects();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import { Link } from 'react-router-dom';
 import AdminNav from '../components/AdminNav';
 
@@ -24,11 +24,11 @@ function Dashboard({ token, onLogout }) {
       setError(null);
 
       const [projectsRes, skillsRes, programmingRes, contactsRes, highlightsRes] = await Promise.all([
-        axios.get('/api/projects'),
-        axios.get('/api/skills'),
-        axios.get('/api/programming'),
-        axios.get('/api/contacts'),
-        axios.get('/api/highlights'),
+        axiosInstance.get('/api/projects'),
+        axiosInstance.get('/api/skills'),
+        axiosInstance.get('/api/programming'),
+        axiosInstance.get('/api/contacts'),
+        axiosInstance.get('/api/highlights'),
       ]);
 
       setStats({

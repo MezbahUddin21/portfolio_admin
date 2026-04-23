@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import { Link } from 'react-router-dom';
 
 function Login() {
@@ -14,7 +14,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/admin/login', { email, password });
+      const response = await axiosInstance.post('/api/admin/login', { email, password });
       localStorage.setItem('adminToken', response.data.token);
       window.location.href = '/dashboard';
     } catch (err) {

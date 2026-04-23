@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import AdminNav from '../components/AdminNav';
 
 function CV({ onLogout }) {
@@ -28,7 +28,7 @@ function CV({ onLogout }) {
         },
       };
 
-      await axios.post('/api/cv/upload', formData, config);
+      await axiosInstance.post('/api/cv/upload', formData, config);
       alert('CV uploaded successfully');
       setFile(null);
     } catch (error) {
